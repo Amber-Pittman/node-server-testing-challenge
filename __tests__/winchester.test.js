@@ -6,6 +6,7 @@ beforeEach(async () => {
     await db.seed.run()
 })
 
+// Jest Hook
 afterAll(async () => {
     await db.destroy()
 })
@@ -13,25 +14,24 @@ afterAll(async () => {
 describe("Winchester Integration Tests", () => {
     it("GET /winchesters", async () => {
         const res = await supertest(server).get("/winchesters")
-
-        expect(res.statusCode).toBe(200)
-        expect(res.type).toBe("application/json")
+		expect(res.statusCode).toBe(200)
+		expect(res.type).toBe("application/json")
+        expect(res.body).toHaveLength(4)
+        expect(res.body[2].name).toBe("John Winchester")
     })
 
     it("GET /winchesters/:id", async () => {
-        const res = await supertest(server).get("/winchesters/1")
-
-        expect(res.statusCode).toBe(200)
-        expect(res.type).toBe("application/json")
-        expect(res.body.name).toMatch(/Dean Winchester/i)
+        const res = await supertest(server).get("/winchesters/2")
+		expect(res.statusCode).toBe(200)
+		expect(res.type).toBe("application/json")
+		expect(res.body.name).toBe("Sam Winchester")
         expect(res.body.role).toBe("hunter")
         expect(res.body.death_count).toBe(112)
     })
 
     it("GET /winchesters/:id (NOT FOUND)", async () => {
-        const res = await supertest(server).get("/winchesters/73")
-
-        expect(res.statusCode).toBe(404)
+		const res = await supertest(server).get("/winchesters/73")
+		expect(res.statusCode).toBe(404)
     })
 
     it("POST /winchesters", async () => {
@@ -44,7 +44,7 @@ describe("Winchester Integration Tests", () => {
 
         const res = await supertest(server).post("/winchesters").send(newWinchester)
 
-        expect(res.statusCode).toBe(200)
+        expect(res.statusCode).toBe(201)
         expect(res.type).toBe("application/json")
         expect(res.body.name).toBe("Gen Winchester")
         expect(res.body.role).toBe("hunter")

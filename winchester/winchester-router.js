@@ -13,14 +13,14 @@ router.get("/", async (req, res, next) => {
 
 router.get("/winchesters/:id", async (req, res, next) => {
     try {
-        const winchester = await Winchesters.findById(req.params.id)
+        const winchesters = await Winchesters.findById(req.params.id)
 
-        if(!winchester) {
+        if(!winchesters) {
             res.status(404).json({
                 message: "This Winchester not found."
             })
         }
-        res.json(winchester)
+        res.json(winchesters)
     } catch(err){
         next(err)
     }
@@ -28,9 +28,9 @@ router.get("/winchesters/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
     try {
-        const winchester = await Winchesters.createNewWinchester(req.body)
+        const winchesters = await Winchesters.createNewWinchester(req.body)
         
-        res.status(201).json(winchester)
+        res.status(201).json(winchesters)
     } catch(err) {
         next(err)
     }

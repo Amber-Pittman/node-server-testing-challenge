@@ -5,7 +5,7 @@ exports.up = async function(knex) {
       table.text("name").notNull()
       table.text("role").notNull()
       table.text("years_active").notNull()
-      table.text("death_count").notNull()
+      table.integer("death_count").notNull()
   })
 }
 
