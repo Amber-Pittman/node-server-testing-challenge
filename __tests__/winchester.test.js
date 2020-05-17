@@ -17,4 +17,14 @@ describe("Winchester Integration Tests", () => {
         expect(res.statusCode).toBe(200)
         expect(res.type).toBe("application/json")
     })
+
+    it("GET /winchesters/:id", async () => {
+        const res = await supertest(server).get("/winchesters/1")
+
+        expect(res.statusCode).toBe(200)
+        expect(res.type).toBe("application/json")
+        expect(res.body.name).toMatch(/Dean Winchester/i)
+        expect(res.body.role).toBe("hunter")
+        expect(res.body.death_count).toBe(112)
+    })
 })

@@ -10,3 +10,11 @@ router.get("/", async (req, res, next) => {
         next(err)
     }
 })
+
+router.get("/winchesters/:id", async (req, res, next) => {
+    try {
+
+    } catch(err){
+        next(err)
+    }
+})
