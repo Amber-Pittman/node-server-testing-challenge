@@ -13,8 +13,17 @@ router.get("/", async (req, res, next) => {
 
 router.get("/winchesters/:id", async (req, res, next) => {
     try {
+        const winchester = await Winchesters.findById(req.params.id)
 
+        if(!winchester) {
+            res.status(404).json({
+                message: "This Winchester not found."
+            })
+        }
     } catch(err){
         next(err)
     }
 })
+
+
+module.exports = router

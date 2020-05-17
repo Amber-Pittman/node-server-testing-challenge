@@ -27,4 +27,10 @@ describe("Winchester Integration Tests", () => {
         expect(res.body.role).toBe("hunter")
         expect(res.body.death_count).toBe(112)
     })
+
+    it("GET /winchesters/:id (NOT FOUND)", async () => {
+        const res = await supertest(server).get("/winchesters/73")
+
+        expect(res.statusCode).toBe(404)
+    })
 })
