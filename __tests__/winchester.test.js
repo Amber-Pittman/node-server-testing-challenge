@@ -33,4 +33,22 @@ describe("Winchester Integration Tests", () => {
 
         expect(res.statusCode).toBe(404)
     })
+
+    it("POST /winchesters", async () => {
+        const newWinchester = {
+            name: "Gen Winchester",
+            role: "hunter",
+            years_active: "2011 - Current",
+            death_count: 0,
+          }
+
+        const res = await supertest(server).post("/winchesters").send(newWinchester)
+
+        expect(res.statusCode).toBe(200)
+        expect(res.type).toBe("application/json")
+        expect(res.body.name).toBe("Gen Winchester")
+        expect(res.body.role).toBe("hunter")
+        expect(res.body.death_count).toBe(0)
+        expect(res.body.years_active).toBe("2011 - Current")
+    })
 })

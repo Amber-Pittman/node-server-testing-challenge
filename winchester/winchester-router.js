@@ -20,10 +20,20 @@ router.get("/winchesters/:id", async (req, res, next) => {
                 message: "This Winchester not found."
             })
         }
+        res.json(winchester)
     } catch(err){
         next(err)
     }
 })
 
+router.post("/", async (req, res, next) => {
+    try {
+        const winchester = await Winchesters.createNewWinchester(req.body)
+        
+        res.status(201).json(winchester)
+    } catch(err) {
+        next(err)
+    }
+})
 
 module.exports = router
